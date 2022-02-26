@@ -63,7 +63,7 @@ def combineAnns():
         for annFile in annFiles:
             fileExists = os.path.exists(f'combined_annotations/{annFile}')
             if (not fileExists):
-                shutil.copy(f'annotations/{className}/{annFile}', '/combined_annotations')
+                copy(f'annotations/{className}/{annFile}', 'combined_annotations/')
             else:
                 data1 = data2 = ""
                 with open(f'combined_annotations/{annFile}') as fp:
@@ -75,6 +75,11 @@ def combineAnns():
                 with open(f'combined_annotations/{annFile}', 'w') as fp:
                     fp.write(data1)
 
+
+def copy(src, dst):
+    if os.path.isdir(dst):
+        dst = os.path.join(dst, os.path.basename(src))
+    shutil.copyfile(src, dst)
 
 argumentList = sys.argv
 
